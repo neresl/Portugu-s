@@ -1,107 +1,307 @@
 <!DOCTYPE html>
- <html lang="pt-BR">
- <head>
+<html lang="pt-BR">
+<head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Portal de Notícias</title>
-  <link rel="stylesheet" href="css/style.css" />
-  
- </head>
- <body>
-    <header>
-      <h1>Portal de Notícias</h1>
-      <nav>
-        <a href="pages/pages 1.html">Início</a>
-        <a href="pages/pages 1.html">Política</a>
-        <a href="pages/pages 1.html">Tecnologia</a>
-        <a href="pages/pages 1.html">Economia</a>
-        <a href="pages/pages 1.html">Saúde</a>
-      </nav>
-   </header>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Moto Club</title>
+  <style>
+    /* Reset e base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1c1c1e;
+      color: #f5f5f7;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      color: #ff6f61;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #ff9274;
+      text-decoration: underline;
+    }
+    header {
+      background: #111;
+      padding: 15px 30px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.9);
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: #ff6f61;
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 10px 15px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    nav button:hover,
+    nav button.active {
+      background: #ff6f61;
+      color: #1c1c1e;
+    }
+    main {
+      flex-grow: 1;
+      padding: 30px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    section {
+      display: none;
+      animation: fadeIn 0.6s ease forwards;
+    }
+    section.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    h1, h2 {
+      color: #ff6f61;
+      margin-bottom: 15px;
+    }
+    p {
+      margin-bottom: 15px;
+      font-size: 1.05rem;
+    }
+    /* Página Membros */
+    .members-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .member-card {
+      background: #2c2c2e;
+      border-radius: 10px;
+      padding: 20px;
+      width: 180px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(255 111 97 / 0.4);
+      transition: transform 0.3s ease;
+    }
+    .member-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(255 111 97 / 0.7);
+    }
+    .member-photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+      border: 3px solid #ff6f61;
+    }
+    /* Página Galeria */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+      gap: 15px;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 18px rgba(255 111 97 / 0.7);
+    }
+    /* Página Contato */
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    input, textarea {
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+      resize: vertical;
+      background: #333;
+      color: #f5f5f7;
+    }
+    input::placeholder,
+    textarea::placeholder {
+      color: #aaa;
+    }
+    button.submit-btn {
+      background: #ff6f61;
+      border: none;
+      color: #1c1c1e;
+      font-size: 1.1rem;
+      font-weight: bold;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button.submit-btn:hover {
+      background: #ff9274;
+    }
+    footer {
+      background: #111;
+      text-align: center;
+      padding: 15px 10px;
+      color: #888;
+      font-size: 0.9rem;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <button class="nav-btn active" data-target="home">Início</button>
+      <button class="nav-btn" data-target="members">Membros</button>
+      <button class="nav-btn" data-target="events">Eventos</button>
+      <button class="nav-btn" data-target="gallery">Galeria</button>
+      <button class="nav-btn" data-target="contact">Contato</button>
+    </nav>
+  </header>
 
-   <div class="banner"></div>
+  <main>
+    <section id="home" class="active" aria-label="Página Inicial">
+      <h1>Bem-vindo ao Moto Club</h1>
+      <p>Somos um grupo de amigos apaixonados por motocicletas. Juntos exploramos novas estradas, vivemos aventuras e celebramos a liberdade sobre duas rodas.</p>
+      <p>Nosso Moto Club é formado por cinco membros que compartilham essa paixão e esse espírito de camaradagem.</p>
+      <p>Explore nosso site e fique por dentro das novidades, eventos e momentos especiais que vivemos juntos.</p>
+    </section>
 
-  <section class="noticias">
-<h2>Últimas Notícias</h2>
-      <div class="news-container">
+    <section id="members" aria-label="Página de Membros">
+      <h2>Conheça os Membros</h2>
+      <div class="members-list">
+        <div class="member-card">
+          <img class="member-photo" src="https://randomuser.me/api/portraits/men/21.jpg" alt="Foto do João" />
+          <h3>João</h3>
+          <p>Fundador do Moto Club, amante de viagens longas e fotografia.</p>
+        </div>
+        <div class="member-card">
+          <img class="member-photo" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Foto da Maria" />
+          <h3>Maria</h3>
+          <p>Especialista em mecânica, sempre pronta para manter as motos em perfeito estado.</p>
+        </div>
+        <div class="member-card">
+          <img class="member-photo" src="https://randomuser.me/api/portraits/men/35.jpg" alt="Foto do Carlos" />
+          <h3>Carlos</h3>
+          <p>Apaixonado por motos clássicas e customizações.</p>
+        </div>
+        <div class="member-card">
+          <img class="member-photo" src="https://randomuser.me/api/portraits/women/52.jpg" alt="Foto da Ana" />
+          <h3>Ana</h3>
+          <p>Organizadora dos eventos e entusiasta de trilhas off-road.</p>
+        </div>
+        <div class="member-card">
+          <img class="member-photo" src="https://randomuser.me/api/portraits/men/47.jpg" alt="Foto do Rafael" />
+          <h3>Rafael</h3>
+          <p>O mais novo do grupo, apaixonado por motos esportivas e velocidade.</p>
+        </div>
+      </div>
+    </section>
 
-        <div class="news-card">
-          <a href="pages/pages 1.html">
-            <img src="https://i0.wp.com/blog.portaleducacao.com.br/wp-content/uploads/2022/02/365-O-que-e%CC%81-tecnologia_.jpg" alt="Tecnologia" />
-          </a>
-          <div class="news-content">
-            <h3>BRASIL CRIA CHIP INVISÍVEL QUE LÊ MENTES</h3>
-            <p> Governo Federal anuncia tecnologia revolucionária.</p>
-          </div>
-        </div>
+    <section id="events" aria-label="Página de Eventos">
+      <h2>Eventos Recentes e Fututos</h2>
+      <ul>
+        <li><strong>Encontro Anual do Moto Club</strong> - 15 de Agosto de 2024 - Local: Serra do Mar</li>
+        <li><strong>Trilha Off-Road</strong> - 10 de Setembro de 2024 - Local: Parque Nacional</li>
+        <li><strong>Passeio Noturno</strong> - 20 de Setembro de 2024 - Local: Centro da Cidade</li>
+        <li><strong>Workshop de Mecânica Básica</strong> - 5 de Outubro de 2024 - Local: Garagem do Moto Club</li>
+      </ul>
+    </section>
 
-        <div class="news-card">
-          <a href="pages/pages 1.html">
-            <img src="https://cnabrasil.org.br/storage/arquivos/imagens/SOJA-1_2023-01-20-195640_nwsp.jpg" alt="Agricultura" />
-          </a>
-          <div class="news-content">
-            <h3>SOJA GENETICAMENTE MODIFICADA CAUSA DOENÇA MISTERIOSA</h3>
-            <p> Cientistas alertam para perigos em plantações.</p>
-          </div>
-        </div>
+    <section id="gallery" aria-label="Página de Galeria">
+      <h2>Galeria de Fotos</h2>
+      <div class="gallery">
+        <img src="https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=500&q=80" alt="Motociclistas na estrada" />
+        <img src="https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=500&q=80" alt="Moto clássica" />
+        <img src="https://images.unsplash.com/photo-1518655048521-f130df041f66?auto=format&fit=crop&w=500&q=80" alt="Moto na trilha" />
+        <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=500&q=80" alt="Pessoas em capacetes de moto" />
+        <img src="https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?auto=format&fit=crop&w=500&q=80" alt="Formação de motos em estrada" />
+      </div>
+    </section>
 
-        <div class="news-card">
-          <a href="pages/pages 1.html">
-            <img src="https://s2-g1.glbimg.com/dIxwsnREFiKAkAEL41NgPniVIRk=/0x0:3265x1935/1008x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2018/B/f/AvALIJTB2zskCB6JhPPQ/2018-12-04t162145z-943292541-rc14e2065200-rtrmadp-3-usa-trade-china.jpg" alt="Comércio" />
-          </a>
-          <div class="news-content">
-            <h3>GUERRA COMERCIAL TERMINA COM ACORDO SECRETO</h3>
-            <p>Preços dos eletrônicos vão despencar.</p>
-          </div>
-        </div>
+    <section id="contact" aria-label="Página de Contato">
+      <h2>Contato</h2>
+      <p>Quer falar com o Moto Club? Envie sua mensagem aqui:</p>
+      <form id="contactForm">
+        <label for="name">Nome</label>
+        <input type="text" id="name" name="name" placeholder="Seu nome" required>
 
-        <div class="news-card">
-          <a href="pages/pages 1.html">
-            <img src="https://drmarcelocruz.com.br/wp-content/uploads/2024/03/Os-Mais-Recentes-Avancos-no-Tratamento-do-Cancer-1024x536.jpg" alt="Saúde" />
-          </a>
-          <div class="news-content">
-            <h3>CURA PARA O CÂNCER ESCONDIDA POR FARMACÊUTICAS</h3>
-            <p>Documentos vazados revelam segredo.</p>
-          </div>
-        </div>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required>
 
-        <div class="news-card">
-          <a href="pages/pages 1.html">
-            <img src="https://elegis.com.br/wp-content/uploads/2019/05/saiba-tudo-o-que-esta-acontecendo-com-a-politica-brasileira-nos-dias-atuais-20190506171036-1.jpg-1.jpg" alt="Política" />
-          </a>
-          <div class="news-content">
-            <h3>PRESIDENTE RENUNCIA APÓS ESCÂNDALO INTERNACIONAL</h3>
-            <p>Vídeo chocante abala a nação.</p>
-          </div>
-        </div>
+        <label for="message">Mensagem</label>
+        <textarea id="message" name="message" rows="5" placeholder="Sua mensagem" required></textarea>
 
-        <div class="news-card">
-          <a href="pages/pages 1.html">
-            <img src="https://i0.wp.com/oeco.org.br/wp-content/uploads/2019/12/desmatamento1.jpg?fit=1152%2C768&ssl=1" alt="Meio Ambiente" />
-          </a>
-          <div class="news-content">
-            <h3>DESCOBERTA CIVILIZAÇÃO ANTIGA NA AMAZÔNIA</h3>
-            <p>Artefatos milenares encontrados durante desmatamento.</p>
-          </div>
-        </div>
+        <button type="submit" class="submit-btn">Enviar</button>
+      </form>
+    </section>
+  </main>
 
-      </div>
-    </section>
+  <footer>
+    &copy; 2024 Moto Club - Todos os direitos reservados
+  </footer>
 
-    <footer>
-      <p>© 2025 Lucas, kauãn, Luis Gabriel. Todos os direitos reservados.</p>
-    </footer>
-  ... <!-- Conteúdo da página -->
-
-  <div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-      <div class="vw-plugin-top-wrapper"></div>
-    </div>
-  </div>
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
   <script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
+    // Gerencia navegação entre as seções
+    const navButtons = document.querySelectorAll('nav button.nav-btn');
+    const sections = document.querySelectorAll('main section');
+
+    navButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active de todos os botões e seções
+        navButtons.forEach(b => b.classList.remove('active'));
+        sections.forEach(s => s.classList.remove('active'));
+        // Ativa o botão e seção clicados
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.target).classList.add('active');
+        // Scroll para o topo suave
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      });
+    });
+
+    // Simples simulação de envio de formulário
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const message = form.message.value.trim();
+      if(name === '' || email === '' || message === '') {
+        alert('Por favor, preencha todos os campos antes de enviar.');
+        return;
+      }
+      alert(`Obrigado, ${name}! Sua mensagem foi enviada com sucesso.`);
+      form.reset();
+    });
   </script>
- </body>
- </html>
+</body>
+</html>
+
